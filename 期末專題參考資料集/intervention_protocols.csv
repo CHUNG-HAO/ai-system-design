@@ -1,0 +1,6 @@
+﻿protocol_id,condition,trigger_rule,activation,key_resources,target_kpi,demo_rule
+PR-STEMI,STEMI,12導程心電圖疑似ST elevation或典型胸痛+血流動力不穩,Code STEMI / 導管室預啟動,PCI醫院、心臟內科、導管室、ICU,FMC-to-device或door-to-balloon <= 90分鐘,優先派送PCI-capable且導管室可用醫院
+PR-STROKE,疑似急性腦中風,FAST陽性、NIHSS較高、發病時間小於4.5小時優先,Code Stroke / 中風團隊預啟動,CT、神經內科、中風病床、血栓溶解評估,Door-to-CT <= 25分鐘；Door-to-needle <= 60分鐘,優先派送中風中心且CT可用醫院
+PR-SEPSIS,敗血症/敗血性休克,qSOFA>=2、SBP<=100、RR>=22、意識改變、乳酸升高,Sepsis Bundle / 敗血症一小時包,急診床、抽血、血液培養、抗生素、ICU/呼吸器,高可能敗血症或休克：抗生素 ideally <= 1小時,優先派送ICU與呼吸器可用醫院
+PR-TRAUMA,重大外傷,高能量外傷、SBP<90、GCS<=8、穿刺傷、重大出血,Trauma Team / 外傷團隊啟動,外傷灣、外傷外科、CT、血庫、手術室,患者到院前外傷團隊ready；必要時大量輸血流程,優先派送一/二級外傷能力且外傷灣可用醫院
+PR-OHCA,到院前心跳停止,無呼吸無脈搏或CPR進行中,OHCA Team / 急救復甦團隊,急救床、急診醫師、呼吸器、ICU、必要時心導管,到院前急救團隊已確認並待命,優先派送最近且急救床/ICU/呼吸器可用醫院

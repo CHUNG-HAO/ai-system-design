@@ -1,0 +1,176 @@
+﻿table_name,table_zh_name,column_name,column_zh_name,description,data_type_in_csv,nullable_rate,key_role,example_values
+alerts,急救通報紀錄,alert_id,通報代碼,急救通報唯一識別碼。,object,0,PK,AL0000001、AL0000002、AL0000003、AL0000004、AL0000005
+alerts,急救通報紀錄,case_id,案件代碼,對應 ems_cases.case_id。,object,0,FK -> ems_cases.case_id,E0000001、E0000002、E0000003、E0000004、E0000005
+alerts,急救通報紀錄,hospital_id,收報醫院代碼,對應 hospitals.hospital_id。,object,0,FK -> hospitals.hospital_id,H001、H003、H002、H005、H004
+alerts,急救通報紀錄,activation_type,啟動流程類型,通報要啟動的院內流程。,object,0,,Sepsis Bundle / 敗血症一小時包、OHCA Team / 急救復甦團隊、Trauma Team / 外傷團隊啟動、Code Stroke / 中風團隊預啟動、Code STEMI / 導管室預啟動
+alerts,急救通報紀錄,priority,通報優先級,P1 或 P2。,object,0,,P1、P2
+alerts,急救通報紀錄,status,通報狀態,例如 closed，表示流程已關閉。,object,0,,closed
+alerts,急救通報紀錄,channel,通報通道,例如 App、Dashboard、SMS。,object,0,,App+Dashboard+SMS、App+Dashboard
+alerts,急救通報紀錄,alert_created_time,通報建立時間,通報送出的時間。,object,0,,2025-11-01 00:56:20、2025-11-01 17:58:40、2025-11-01 08:34:42、2025-11-01 17:47:10、2025-11-01 08:02:39
+alerts,急救通報紀錄,first_ack_time,第一次 ACK 時間,醫院端第一次確認收到的時間。,object,0,,2025-11-01 01:01:20、2025-11-01 18:03:40、2025-11-01 08:39:42、2025-11-01 17:50:10、2025-11-01 08:05:39
+alerts,急救通報紀錄,closed_time,通報關閉時間,案件通報流程結束時間。,object,0,,2025-11-01 02:30:20、2025-11-01 19:34:40、2025-11-01 09:53:42、2025-11-01 18:49:10、2025-11-01 08:52:39
+alerts,急救通報紀錄,ack_minutes,ACK 所需分鐘數,first_ack_time - alert_created_time。,float64,0,,5.0、3.0、4.0、2.0、6.0
+alerts,急救通報紀錄,message_summary,通報摘要,給院內端看的簡短文字摘要。,object,0,,P1 敗血症/敗血性休克，ETA約23分鐘，請預備Sepsis Bundle / 敗血症一小時包、P1 到院前心跳停止，ETA約35分鐘，請預備OHCA Team / 急救復甦團隊、P2 重大外傷，ETA約31分鐘，請預備Trauma Team / 外傷團隊啟動、P2 疑似急性腦中風，ETA約26分鐘，請預備Code Stroke / 中風團隊預啟動、P1 重大外傷，ETA約25分鐘，請預備Trauma Team / 外傷團隊啟動
+ambulances,救護車主檔,ambulance_id,救護車代碼,救護車唯一識別碼。,object,0,PK; 被 ems_cases.ambulance_id 參照,A001、A002、A003、A004、A005
+ambulances,救護車主檔,station_id,消防 / 救護分隊代碼,救護車所屬分隊代碼。,object,0,,S01、S02、S03、S04、S05
+ambulances,救護車主檔,station_name,分隊名稱,救護車所屬分隊名稱。,object,0,,北城消防分隊、河東消防分隊、南港消防分隊、西區消防分隊、桃園消防分隊
+ambulances,救護車主檔,base_lat,基地緯度,分隊或救護車基地位置緯度。,float64,0,,25.056792、25.053058、25.050591、25.0281、25.033917
+ambulances,救護車主檔,base_lon,基地經度,分隊或救護車基地位置經度。,float64,0,,121.517704、121.522604、121.524117、121.567048、121.572631
+ambulances,救護車主檔,level,救護等級,例如 EMT-2、EMT-P；可用於判斷車上處置能力。,object,0,,EMT-2、EMT-P
+ambulances,救護車主檔,has_12lead_ecg,是否有 12 導程心電圖,1 表示車上可做 12 導程 ECG，對 STEMI 到院前辨識很重要。,int64,0,,1、0
+ambulances,救護車主檔,has_ventilator,是否有車上呼吸器,1 表示救護車具備呼吸器設備。,int64,0,,0、1
+ambulances,救護車主檔,active,是否啟用,1 表示目前可派遣或可用。,int64,0,,1
+clinicians,院內人員主檔,clinician_id,人員代碼,院內人員唯一識別碼。,object,0,PK; 被 physician_shifts.clinician_id 參照,C0001、C0002、C0003、C0004、C0005
+clinicians,院內人員主檔,hospital_id,所屬醫院代碼,對應 hospitals.hospital_id。,object,0,FK -> hospitals.hospital_id,H001、H002、H003、H004、H005
+clinicians,院內人員主檔,specialty,專科 / 角色,例如急診、心臟內科、神經內科、外傷外科、加護醫學、放射科、護理組長。,object,0,,急診、心臟內科、神經內科、外傷外科、加護醫學
+clinicians,院內人員主檔,clinician_name,人員名稱,合成姓名，用於 Demo 顯示。,object,0,,北區急診01、北區急診02、北區急診03、北區心臟內科01、北區心臟內科02
+clinicians,院內人員主檔,seniority_years,年資,模擬人員年資。,int64,0,,8、10、20、19、2
+clinicians,院內人員主檔,can_lead_code_team,是否可帶領急救團隊,1 表示可作為 Code STEMI、Code Stroke、Trauma Team 等團隊負責人。,int64,0,,1、0
+clinicians,院內人員主檔,active,是否在職 / 可用,1 表示仍可被排班與通知。,int64,0,,1
+ems_cases,救護案件主檔,case_id,案件代碼,救護案件唯一識別碼，也是串接其他案件資料的主鍵。,object,0,PK; 被 alerts.case_id 參照; 被 routing_recommendations.case_id 參照; 被 prehospital_vitals.case_id 參照; 被 resource_orders.case_id 參照; 被 treatment_events.case_id 參照; 被 outcomes.case_id 參照,E0000001、E0000002、E0000003、E0000004、E0000005
+ems_cases,救護案件主檔,patient_id,病患代碼,對應 patients.patient_id。,object,0,FK -> patients.patient_id,P000001、P000002、P000003、P000004、P000005
+ems_cases,救護案件主檔,ambulance_id,救護車代碼,對應 ambulances.ambulance_id。,object,0,FK -> ambulances.ambulance_id,A008、A004、A007、A012、A003
+ems_cases,救護案件主檔,suspected_condition,疑似病症,五類急重症：STEMI、疑似急性腦中風、敗血症/敗血性休克、重大外傷、到院前心跳停止。,object,0,,敗血症/敗血性休克、到院前心跳停止、重大外傷、疑似急性腦中風、STEMI
+ems_cases,救護案件主檔,activation_type,啟動流程類型,例如 Code STEMI、Code Stroke、Sepsis Bundle、Trauma Team、OHCA Team。,object,0,,Sepsis Bundle / 敗血症一小時包、OHCA Team / 急救復甦團隊、Trauma Team / 外傷團隊啟動、Code Stroke / 中風團隊預啟動、Code STEMI / 導管室預啟動
+ems_cases,救護案件主檔,esi_level,急診嚴重度分級,模擬 ESI level，1 最嚴重，2 次之。,int64,0,,1、2
+ems_cases,救護案件主檔,priority,通報優先級,P1 或 P2，P1 表示需立即處理。,object,0,,P1、P2
+ems_cases,救護案件主檔,scene_lat,現場緯度,救護現場位置緯度。,float64,0,,25.082741、25.002202、25.005418、25.049697、24.999018
+ems_cases,救護案件主檔,scene_lon,現場經度,救護現場位置經度。,float64,0,,121.513134、121.59174、121.573732、121.55263、121.538069
+ems_cases,救護案件主檔,dispatch_time,派遣時間,救護車被派遣的時間。,object,0,,2025-11-01 00:39:20、2025-11-01 17:46:40、2025-11-01 08:23:42、2025-11-01 17:32:10、2025-11-01 07:50:39
+ems_cases,救護案件主檔,patient_contact_time,接觸病患時間,救護人員第一次接觸病患的時間。,object,0,,2025-11-01 00:51:20、2025-11-01 17:53:40、2025-11-01 08:33:42、2025-11-01 17:44:10、2025-11-01 07:59:39
+ems_cases,救護案件主檔,depart_scene_time,離開現場時間,救護車載病患離開現場時間。,object,0,,2025-11-01 01:03:20、2025-11-01 18:11:40、2025-11-01 08:44:42、2025-11-01 18:01:10、2025-11-01 08:19:39
+ems_cases,救護案件主檔,alert_created_time,通報建立時間,救護車端或系統送出急救通報的時間。,object,0,,2025-11-01 00:56:20、2025-11-01 17:58:40、2025-11-01 08:34:42、2025-11-01 17:47:10、2025-11-01 08:02:39
+ems_cases,救護案件主檔,eta_time,預估到院時間,系統估算的到院時間。,object,0,,2025-11-01 01:17:20、2025-11-01 18:31:40、2025-11-01 09:04:42、2025-11-01 18:09:10、2025-11-01 08:30:39
+ems_cases,救護案件主檔,receiving_hospital_id,收治醫院代碼,實際選擇或送往的醫院，對應 hospitals.hospital_id。,object,0,FK -> hospitals.hospital_id,H001、H003、H002、H005、H004
+ems_cases,救護案件主檔,arrival_hospital_time,到院時間,救護車抵達收治醫院的時間。,object,0,,2025-11-01 01:19:20、2025-11-01 18:33:40、2025-11-01 09:05:42、2025-11-01 18:13:10、2025-11-01 08:27:39
+ems_cases,救護案件主檔,onset_to_contact_min,發病到接觸時間,從發病或最後正常時間到 EMT 接觸病患的分鐘數；OHCA 可能為空。,float64,0.159,,193.0、190.0、271.0、197.0、81.0
+ems_cases,救護案件主檔,chief_complaint,主訴,救護車端摘要，例如胸痛、單側無力、發燒血壓低等。,object,0,,發燒、意識變差、血壓偏低、無意識、無呼吸或無脈搏、穿刺傷後疑似重大外傷、單側無力、口齒不清或意識改變、機械傷害後疑似重大外傷
+ems_cases,救護案件主檔,initial_sbp,初始收縮壓,第一筆生命徵象的收縮壓，單位 mmHg。,int64,0,,112、0、159、116、148
+ems_cases,救護案件主檔,initial_dbp,初始舒張壓,第一筆生命徵象的舒張壓，單位 mmHg。,int64,0,,54、0、82、67、66
+ems_cases,救護案件主檔,initial_hr,初始心跳,每分鐘心跳數。OHCA 可能為 0。,int64,0,,124、0、105、110、114
+ems_cases,救護案件主檔,initial_rr,初始呼吸速率,每分鐘呼吸次數。OHCA 可能為 0。,int64,0,,35、0、25、17、26
+ems_cases,救護案件主檔,initial_spo2,初始血氧,血氧飽和度百分比。OHCA 可能為 0。,int64,0,,92、0、90、100、97
+ems_cases,救護案件主檔,initial_temp_c,初始體溫,攝氏體溫。,float64,0,,40.3、35.0、36.6、36.1、34.9
+ems_cases,救護案件主檔,initial_gcs,初始 GCS,Glasgow Coma Scale，3 到 15。,int64,0,,11、3、13、6、15
+ems_cases,救護案件主檔,qsofa,qSOFA 分數,敗血症風險分數，包含呼吸、血壓、意識。非敗血症案件可能為空。,float64,0.799,,2.0、3.0、0.0、1.0
+ems_cases,救護案件主檔,lactate_mmol_l,乳酸值,敗血症相關指標，單位 mmol/L；非敗血症案件可能為空。,float64,0.799,,4.6、4.1、4.9、3.6、4.4
+ems_cases,救護案件主檔,nihss,NIHSS 分數,中風嚴重度分數；非中風案件可能為空。,float64,0.757,,13.0、24.0、4.0、10.0、17.0
+ems_cases,救護案件主檔,fast_positive,FAST 是否陽性,1 表示臉歪、手無力、說話不清等中風篩檢陽性；非中風案件可能為空。,float64,0.757,,1.0、0.0
+ems_cases,救護案件主檔,ecg_stemi,ECG 是否疑似 STEMI,1 表示 12 導程心電圖疑似 STEMI；非 STEMI 案件可能為空。,float64,0.783,,1.0、0.0
+ems_cases,救護案件主檔,chest_pain_score,胸痛分數,STEMI 相關胸痛強度，1 到 10；非 STEMI 案件可能為空。,float64,0.783,,7.0、5.0、8.0、6.0、10.0
+ems_cases,救護案件主檔,trauma_mechanism,外傷機轉,例如車禍、高處墜落、夾壓傷；非外傷案件可能為空。,object,0.819,,穿刺傷、機械傷害、高處墜落、車禍、夾壓傷
+ems_cases,救護案件主檔,prehospital_rosc,到院前是否恢復自發循環,OHCA 案件欄位，1 表示到院前 ROSC。,float64,0.841,,0.0、1.0
+ems_cases,救護案件主檔,data_quality_score,資料品質分數,0 到 1，模擬救護車端資料完整度或可信度。,float64,0,,0.83、0.85、0.82、0.81、0.98
+ems_cases,救護案件主檔,created_by,資料建立來源,本資料集為 synthetic_generator_v1。,object,0,,synthetic_generator_v1
+hospital_resource_snapshots,醫院資源快照,snapshot_id,資源快照代碼,每次資源回報的唯一識別碼。,object,0,PK,RS0000001、RS0000002、RS0000003、RS0000004、RS0000005
+hospital_resource_snapshots,醫院資源快照,hospital_id,醫院代碼,對應 hospitals.hospital_id。,object,0,FK -> hospitals.hospital_id,H001、H002、H003、H004、H005
+hospital_resource_snapshots,醫院資源快照,snapshot_time,快照時間,資源狀態回報時間，本資料每 4 小時產生一次。,object,0,,2025-11-01 00:00:00、2025-11-01 04:00:00、2025-11-01 08:00:00、2025-11-01 12:00:00、2025-11-01 16:00:00
+hospital_resource_snapshots,醫院資源快照,ed_beds_available,急診可用床位,此時間點急診還可收治的床位數。,int64,0,,15、0、2、4、10
+hospital_resource_snapshots,醫院資源快照,icu_beds_available,ICU 可用床位,此時間點加護病房可用床位數。,int64,0,,6、11、1、2、3
+hospital_resource_snapshots,醫院資源快照,ct_available,CT 是否可用,1 表示 CT 可用。,int64,0,,1、0
+hospital_resource_snapshots,醫院資源快照,cath_lab_available,導管室是否可用,1 表示心導管室可用。,int64,0,,1、0
+hospital_resource_snapshots,醫院資源快照,trauma_bays_available,外傷灣可用數,此時間點外傷急救區可用數。,int64,0,,2、1、0、3、4
+hospital_resource_snapshots,醫院資源快照,ventilators_available,呼吸器可用數,此時間點可用呼吸器數。,int64,0,,0、1、2、4、7
+hospital_resource_snapshots,醫院資源快照,isolation_beds_available,隔離床可用數,可用於感染或特殊隔離需求情境。,int64,0,,6、1、3、2、5
+hospital_resource_snapshots,醫院資源快照,blood_o_units_available,O 型血庫存量,模擬 O 型血可用單位數，對重大外傷大量輸血流程有幫助。,int64,0,,19、20、6、10、15
+hospital_resource_snapshots,醫院資源快照,nurse_team_available,護理團隊是否可用,1 表示有可支援急救流程的護理團隊。,int64,0,,1、0
+hospital_resource_snapshots,醫院資源快照,crowding_index,急診壅塞指標,0 到 1，越接近 1 表示越壅塞；可作為推薦醫院扣分條件。,float64,0,,0.628、0.911、1.0、0.739、0.701
+hospitals,醫院主檔,hospital_id,醫院代碼,醫院唯一識別碼。,object,0,PK; 被 ems_cases.receiving_hospital_id 參照; 被 alerts.hospital_id 參照; 被 hospital_resource_snapshots.hospital_id 參照; 被 clinicians.hospital_id 參照; 被 physician_shifts.hospital_id 參照; 被 resource_orders.hospital_id 參照,H001、H002、H003、H004、H005
+hospitals,醫院主檔,hospital_name,醫院名稱,合成醫院名稱。,object,0,,北城醫學中心、河東綜合醫院、南港急救責任醫院、西區聯合醫院、中央大學附設醫院
+hospitals,醫院主檔,hospital_level,醫院層級,medical_center、regional、district，代表醫學中心、區域醫院、地區醫院。,object,0,,medical_center、regional、district
+hospitals,醫院主檔,region,服務區域,醫院所在區域，供地圖與分區分析使用。,object,0,,北區、東區、南區、西區、桃園區
+hospitals,醫院主檔,lat,緯度,醫院位置緯度，用於計算距離與預估車程。,float64,0,,25.0478、25.033、25.0138、25.06、24.97
+hospitals,醫院主檔,lon,經度,醫院位置經度，用於計算距離與預估車程。,float64,0,,121.517、121.5654、121.54、121.5、121.22
+hospitals,醫院主檔,pci_capable,是否具 PCI 能力,1 表示可執行經皮冠狀動脈介入治療，對 STEMI 推薦很重要。,int64,0,,1、0
+hospitals,醫院主檔,stroke_center_level,中風中心等級,none、primary、comprehensive，表示非中風中心、初級中風中心、完整中風中心。,object,0,,comprehensive、primary、none
+hospitals,醫院主檔,trauma_center_level,外傷中心等級,數字越小能力越高；1 通常表示最高外傷能力。,int64,0,,1、2、3
+hospitals,醫院主檔,has_ct,是否有 CT,1 表示可做 CT，對中風與外傷很重要。,int64,0,,1
+hospitals,醫院主檔,has_cath_lab,是否有導管室,1 表示有心導管室，對 STEMI 很重要。,int64,0,,1、0
+hospitals,醫院主檔,has_neuro_intervention,是否有神經介入能力,1 表示可進一步支援急性腦中風取栓等高階處置模擬。,int64,0,,1、0
+hospitals,醫院主檔,ed_beds_total,急診床總數,醫院急診可使用床位總量。,int64,0,,42、30、24、16、38
+hospitals,醫院主檔,icu_beds_total,ICU 床總數,加護病房床位總量。,int64,0,,28、18、14、8、25
+hospitals,醫院主檔,trauma_bays_total,外傷灣總數,外傷急救處置區的總量。,int64,0,,4、2、1
+hospitals,醫院主檔,ventilators_total,呼吸器總數,可用呼吸器總量，用於 OHCA、敗血症、重大外傷。,int64,0,,30、18、14、8、26
+intervention_protocols,急重症啟動規則表,protocol_id,流程規則代碼,急重症流程規則唯一識別碼。,object,0,PK,PR-STEMI、PR-STROKE、PR-SEPSIS、PR-TRAUMA、PR-OHCA
+intervention_protocols,急重症啟動規則表,condition,病症,此規則適用的急重症。,object,0,,STEMI、疑似急性腦中風、敗血症/敗血性休克、重大外傷、到院前心跳停止
+intervention_protocols,急重症啟動規則表,trigger_rule,觸發條件,何種條件下啟動此流程。,object,0,,12導程心電圖疑似ST elevation或典型胸痛+血流動力不穩、FAST陽性、NIHSS較高、發病時間小於4.5小時優先、qSOFA>=2、SBP<=100、RR>=22、意識改變、乳酸升高、高能量外傷、SBP<90、GCS<=8、穿刺傷、重大出血、無呼吸無脈搏或CPR進行中
+intervention_protocols,急重症啟動規則表,activation,啟動名稱,院內通報流程名稱。,object,0,,Code STEMI / 導管室預啟動、Code Stroke / 中風團隊預啟動、Sepsis Bundle / 敗血症一小時包、Trauma Team / 外傷團隊啟動、OHCA Team / 急救復甦團隊
+intervention_protocols,急重症啟動規則表,key_resources,關鍵資源,此病症常需要預先準備的院內資源。,object,0,,PCI醫院、心臟內科、導管室、ICU、CT、神經內科、中風病床、血栓溶解評估、急診床、抽血、血液培養、抗生素、ICU/呼吸器、外傷灣、外傷外科、CT、血庫、手術室、急救床、急診醫師、呼吸器、ICU、必要時心導管
+intervention_protocols,急重症啟動規則表,target_kpi,目標 KPI,評估此流程是否達標的主要指標。,object,0,,FMC-to-device或door-to-balloon <= 90分鐘、Door-to-CT <= 25分鐘；Door-to-needle <= 60分鐘、高可能敗血症或休克：抗生素 ideally <= 1小時、患者到院前外傷團隊ready；必要時大量輸血流程、到院前急救團隊已確認並待命
+intervention_protocols,急重症啟動規則表,demo_rule,Demo 推薦規則,本資料集使用的簡化推薦邏輯。,object,0,,優先派送PCI-capable且導管室可用醫院、優先派送中風中心且CT可用醫院、優先派送ICU與呼吸器可用醫院、優先派送一/二級外傷能力且外傷灣可用醫院、優先派送最近且急救床/ICU/呼吸器可用醫院
+outcomes,結果與 KPI 表,outcome_id,結果代碼,案件結果紀錄唯一識別碼。,object,0,PK,OUT0000001、OUT0000002、OUT0000003、OUT0000004、OUT0000005
+outcomes,結果與 KPI 表,case_id,案件代碼,對應 ems_cases.case_id。,object,0,FK -> ems_cases.case_id,E0000001、E0000002、E0000003、E0000004、E0000005
+outcomes,結果與 KPI 表,door_to_balloon_min,Door-to-balloon 分鐘,STEMI 到院至球囊或第一個裝置時間。非 STEMI 可能為空。,float64,0.783,,60.0、86.0、66.0、78.0、70.0
+outcomes,結果與 KPI 表,door_to_ct_min,Door-to-CT 分鐘,中風到院至 CT 開始時間。非中風可能為空。,float64,0.757,,20.0、13.0、14.0、17.0、22.0
+outcomes,結果與 KPI 表,door_to_needle_min,Door-to-needle 分鐘,中風到院至血栓溶解開始時間。非中風或未溶栓可能為空。,float64,0.871,,30.0、59.0、79.0、67.0、89.0
+outcomes,結果與 KPI 表,antibiotic_to_recognition_min,抗生素給予時間,敗血症從辨識 / 到院流程到廣效抗生素給予分鐘數。非敗血症可能為空。,float64,0.799,,52.0、20.0、65.0、39.0、35.0
+outcomes,結果與 KPI 表,trauma_team_ready_min_from_arrival,外傷團隊 ready 相對到院時間,小於等於 0 表示病患到院前團隊已準備好。非外傷可能為空。,float64,0.819,,-9.0、-3.0、6.0、10.0、-8.0
+outcomes,結果與 KPI 表,protocol_target_met,是否達成流程目標,1 表示該病症對應 KPI 達標。,int64,0,,1、0
+outcomes,結果與 KPI 表,survival_to_admission,是否存活至住院 / 收治,1 表示至少存活至收治或住院階段。,int64,0,,1、0
+outcomes,結果與 KPI 表,mortality_24h,24 小時死亡,1 表示 24 小時內死亡，為合成結果。,int64,0,,0、1
+outcomes,結果與 KPI 表,disposition,處置去向,例如 ICU住院、一般病房、轉院、急診留觀、死亡。,object,0,,一般病房、死亡、轉院、急診留觀、ICU住院
+outcomes,結果與 KPI 表,los_days,住院天數,length of stay，死亡或未住院可能為空。,float64,0.207,,11.9、13.7、5.8、5.0、0.5
+outcomes,結果與 KPI 表,notes,備註,結果資料備註。,object,0,,synthetic outcome for system testing
+patients,病患去識別化主檔,patient_id,病患代碼,去識別化合成病患代碼。,object,0,PK; 被 ems_cases.patient_id 參照,P000001、P000002、P000003、P000004、P000005
+patients,病患去識別化主檔,synthetic,是否合成資料,1 表示此資料為合成資料，不是真實病患。,int64,0,,1
+patients,病患去識別化主檔,sex,性別,M 或 F。,object,0,,M、F
+patients,病患去識別化主檔,age,年齡,合成病患年齡。,int64,0,,52、54、18、95、30
+patients,病患去識別化主檔,age_group,年齡層,18-39、40-64、65+。,object,0,,40-64、18-39、65+
+patients,病患去識別化主檔,has_hypertension,是否有高血壓病史,1 表示有高血壓風險因子。,int64,0,,0、1
+patients,病患去識別化主檔,has_diabetes,是否有糖尿病病史,1 表示有糖尿病風險因子。,int64,0,,0、1
+patients,病患去識別化主檔,has_cvd_history,是否有心血管 / 腦血管病史,1 表示有相關病史。,int64,0,,0、1
+patients,病患去識別化主檔,has_anticoagulant,是否使用抗凝血藥物,1 表示可能使用抗凝血藥物，對中風與外傷風險評估有意義。,int64,0,,0、1
+physician_shifts,醫護值班表,shift_id,班表代碼,值班紀錄唯一識別碼。,object,0,PK,SH000001、SH000002、SH000003、SH000004、SH000005
+physician_shifts,醫護值班表,hospital_id,醫院代碼,對應 hospitals.hospital_id。,object,0,FK -> hospitals.hospital_id,H001、H002、H003、H004、H005
+physician_shifts,醫護值班表,specialty,專科 / 角色,該班別負責的專科或角色。,object,0,,急診、心臟內科、神經內科、外傷外科、加護醫學
+physician_shifts,醫護值班表,clinician_id,值班人員代碼,對應 clinicians.clinician_id。,object,0,FK -> clinicians.clinician_id,C0001、C0003、C0004、C0005、C0007
+physician_shifts,醫護值班表,shift_label,班別,日班、小夜班、夜班。,object,0,,夜班、日班、小夜班
+physician_shifts,醫護值班表,shift_start,班別開始時間,此班開始的日期時間。,object,0,,2025-11-01 00:00:00、2025-11-01 08:00:00、2025-11-01 16:00:00、2025-11-02 00:00:00、2025-11-02 08:00:00
+physician_shifts,醫護值班表,shift_end,班別結束時間,此班結束的日期時間。,object,0,,2025-11-01 08:00:00、2025-11-01 16:00:00、2025-11-02 00:00:00、2025-11-02 08:00:00、2025-11-02 16:00:00
+physician_shifts,醫護值班表,on_call,是否為待命班,1 表示非現場常駐但可被通報或召回。,int64,0,,0、1
+prehospital_vitals,到院前生命徵象序列,vital_id,生命徵象紀錄代碼,生命徵象單筆紀錄唯一識別碼。,object,0,PK,V00000001、V00000002、V00000003、V00000004、V00000005
+prehospital_vitals,到院前生命徵象序列,case_id,案件代碼,對應 ems_cases.case_id。,object,0,FK -> ems_cases.case_id,E0000001、E0000002、E0000003、E0000004、E0000005
+prehospital_vitals,到院前生命徵象序列,sequence_no,序號,同一案件內生命徵象的順序。,int64,0,,1、2、3
+prehospital_vitals,到院前生命徵象序列,measured_at,量測時間,生命徵象量測時間。,object,0,,2025-11-01 00:51:20、2025-11-01 01:03:20、2025-11-01 01:19:20、2025-11-01 17:53:40、2025-11-01 18:11:40
+prehospital_vitals,到院前生命徵象序列,phase,流程階段,contact、depart_scene、arrival_hospital。,object,0,,contact、depart_scene、arrival_hospital
+prehospital_vitals,到院前生命徵象序列,sbp,收縮壓,單位 mmHg。,int64,0,,107、123、121、0、165
+prehospital_vitals,到院前生命徵象序列,dbp,舒張壓,單位 mmHg。,int64,0,,53、49、58、0、76
+prehospital_vitals,到院前生命徵象序列,hr,心跳,每分鐘心跳數。,int64,0,,129、117、126、0、107
+prehospital_vitals,到院前生命徵象序列,rr,呼吸速率,每分鐘呼吸次數。,int64,0,,32、36、35、0、25
+prehospital_vitals,到院前生命徵象序列,spo2,血氧,血氧飽和度百分比。,int64,0,,92、94、91、0、89
+prehospital_vitals,到院前生命徵象序列,gcs,GCS,意識分數，3 到 15。,int64,0,,11、3、4、12、13
+prehospital_vitals,到院前生命徵象序列,source,資料來源,例如 ambulance_monitor。,object,0,,ambulance_monitor
+resource_orders,院內資源預約 / 指派紀錄,order_id,資源需求代碼,院內資源預約或指派紀錄唯一識別碼。,object,0,PK,RO00000001、RO00000002、RO00000003、RO00000004、RO00000005
+resource_orders,院內資源預約 / 指派紀錄,case_id,案件代碼,對應 ems_cases.case_id。,object,0,FK -> ems_cases.case_id,E0000001、E0000002、E0000003、E0000004、E0000005
+resource_orders,院內資源預約 / 指派紀錄,hospital_id,醫院代碼,對應 hospitals.hospital_id。,object,0,FK -> hospitals.hospital_id,H001、H003、H002、H005、H004
+resource_orders,院內資源預約 / 指派紀錄,resource_type,資源類型,例如 ED_BED、ICU_BED、CT_ROOM、CATH_LAB、TRAUMA_BAY、VENTILATOR。,object,0,,ED_BED、SEPSIS_NURSE、LAB_FAST_TRACK、ICU_BED、VENTILATOR
+resource_orders,院內資源預約 / 指派紀錄,request_status,需求狀態,confirmed 表示已確認；pending_at_arrival 表示到院時仍待確認。,object,0,,confirmed、pending_at_arrival
+resource_orders,院內資源預約 / 指派紀錄,requested_time,需求建立時間,系統或人員建立資源需求的時間。,object,0,,2025-11-01 00:59:20、2025-11-01 00:56:20、2025-11-01 00:58:20、2025-11-01 17:59:40、2025-11-01 17:58:40
+resource_orders,院內資源預約 / 指派紀錄,confirmed_time,資源確認時間,院內端確認資源可用或完成指派的時間。,object,0,,2025-11-01 01:04:20、2025-11-01 01:12:20、2025-11-01 01:02:20、2025-11-01 01:22:20、2025-11-01 18:14:40
+resource_orders,院內資源預約 / 指派紀錄,confirm_minutes,確認耗時分鐘數,confirmed_time - requested_time。,float64,0,,5.0、16.0、4.0、23.0、14.0
+resource_orders,院內資源預約 / 指派紀錄,assigned_resource_id,指派資源代碼,合成的床位、處置室、設備或團隊代碼。,object,0,,H001-ED_BED-07、H001-SEPSIS_NURSE-08、H001-LAB_FAST_TRACK-09、H001-ICU_BED-04、H001-VENTILATOR-08
+resource_orders,院內資源預約 / 指派紀錄,requested_by,需求來源,例如 auto_protocol_engine，表示由規則引擎自動產生。,object,0,,auto_protocol_engine
+routing_recommendations,推薦醫院排序紀錄,recommendation_id,推薦紀錄代碼,醫院推薦結果唯一識別碼。,object,0,PK,RR0000001、RR0000002、RR0000003、RR0000004、RR0000005
+routing_recommendations,推薦醫院排序紀錄,case_id,案件代碼,對應 ems_cases.case_id。,object,0,FK -> ems_cases.case_id,E0000001、E0000002、E0000003、E0000004、E0000005
+routing_recommendations,推薦醫院排序紀錄,condition,病症,推薦時使用的病症類型。,object,0,,敗血症/敗血性休克、到院前心跳停止、重大外傷、疑似急性腦中風、STEMI
+routing_recommendations,推薦醫院排序紀錄,selected_hospital_id,最後選擇醫院,實際送往或選擇的醫院。,object,0,,H001、H003、H002、H005、H004
+routing_recommendations,推薦醫院排序紀錄,recommended_hospital_1,推薦第 1 名醫院,系統推薦分數最高醫院。,object,0,,H001、H003、H002、H005、H004
+routing_recommendations,推薦醫院排序紀錄,score_1,第 1 名分數,系統加權分數，越高越適合。,float64,0,,82.19、89.7、98.4、106.55、104.93
+routing_recommendations,推薦醫院排序紀錄,travel_min_1,第 1 名預估車程,現場到第 1 名醫院的預估分鐘數。,float64,0,,15.8、21.5、12.1、12.2、8.4
+routing_recommendations,推薦醫院排序紀錄,reason_1,第 1 名推薦原因,例如 PCI 可用、CT 可用、ICU 可用等。,object,0,,ICU可用6床、可後續評估PCI、二級外傷能力、完整中風中心; CT可用、初級中風中心; CT可用
+routing_recommendations,推薦醫院排序紀錄,recommended_hospital_2,推薦第 2 名醫院,系統推薦第二名醫院。,object,0,,H002、H001、H004、H003
+routing_recommendations,推薦醫院排序紀錄,score_2,第 2 名分數,第二名加權分數。,float64,0,,75.94、83.79、97.7、97.94、90.99
+routing_recommendations,推薦醫院排序紀錄,travel_min_2,第 2 名預估車程,現場到第二名醫院預估分鐘數。,float64,0,,18.6、16.5、12.8、10.9、20.9
+routing_recommendations,推薦醫院排序紀錄,reason_2,第 2 名推薦原因,第二名推薦理由。,object,0,,ICU可用11床、可後續評估PCI、二級外傷能力、初級中風中心; CT可用、完整中風中心; CT可用
+routing_recommendations,推薦醫院排序紀錄,recommended_hospital_3,推薦第 3 名醫院,系統推薦第三名醫院。,object,0,,H004、H003、H001、H005、H002
+routing_recommendations,推薦醫院排序紀錄,score_3,第 3 名分數,第三名加權分數。,float64,0,,70.8、73.89、81.18、96.18、84.2
+routing_recommendations,推薦醫院排序紀錄,travel_min_3,第 3 名預估車程,現場到第三名醫院預估分鐘數。,float64,0,,14.5、18.0、20.7、11.7、19.0
+routing_recommendations,推薦醫院排序紀錄,reason_3,第 3 名推薦原因,第三名推薦理由。,object,0,,ICU可用2床、距離與壅塞度評分、一級外傷能力、初級中風中心; CT可用、可後續評估PCI
+routing_recommendations,推薦醫院排序紀錄,selected_reason,最後選擇原因,說明是否選擇最高分醫院，或因家屬意願、壅塞變化、醫療指揮調度而改選。,object,0,,最高分醫院、非最高分：模擬家屬意願、壅塞變化或醫療指揮調度
+treatment_events,到院後處置事件,event_id,處置事件代碼,到院後處置事件唯一識別碼。,object,0,PK,EV00000001、EV00000002、EV00000003、EV00000004、EV00000005
+treatment_events,到院後處置事件,case_id,案件代碼,對應 ems_cases.case_id。,object,0,FK -> ems_cases.case_id,E0000001、E0000002、E0000003、E0000004、E0000005
+treatment_events,到院後處置事件,event_type,事件類型,例如 CT_START、BALLOON_OR_FIRST_DEVICE、BROAD_SPECTRUM_ANTIBIOTICS、TRAUMA_TEAM_READY。,object,0,,PREHOSPITAL_ALERT_SENT、HOSPITAL_ACK、PATIENT_ARRIVED_ED、LACTATE_DRAWN、BLOOD_CULTURE_DRAWN
+treatment_events,到院後處置事件,event_time,事件時間,處置或狀態發生時間。,object,0,,2025-11-01 00:56:20、2025-11-01 01:01:20、2025-11-01 01:19:20、2025-11-01 01:28:20、2025-11-01 01:50:20
+treatment_events,到院後處置事件,minutes_from_arrival,距到院分鐘數,事件時間減去到院時間；負值表示到院前已完成。,float64,0,,-23.0、-18.0、0.0、8.9、31.4
+treatment_events,到院後處置事件,actor_role,執行角色,例如 EMT、charge_nurse、cardiologist、neurologist、trauma_team。,object,0,,EMT、charge_nurse、nurse、physician、intensivist
+treatment_events,到院後處置事件,outcome,事件結果,例如 done、rosc、no_rosc。,object,0,,done、no_rosc、rosc

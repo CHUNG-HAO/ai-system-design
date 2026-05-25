@@ -1,0 +1,6 @@
+﻿hospital_id,hospital_name,hospital_level,region,lat,lon,pci_capable,stroke_center_level,trauma_center_level,has_ct,has_cath_lab,has_neuro_intervention,ed_beds_total,icu_beds_total,trauma_bays_total,ventilators_total
+H001,北城醫學中心,medical_center,北區,25.0478,121.517,1,comprehensive,1,1,1,1,42,28,4,30
+H002,河東綜合醫院,regional,東區,25.033,121.5654,1,primary,2,1,1,0,30,18,2,18
+H003,南港急救責任醫院,regional,南區,25.0138,121.54,0,primary,2,1,0,0,24,14,2,14
+H004,西區聯合醫院,district,西區,25.06,121.5,0,none,3,1,0,0,16,8,1,8
+H005,中央大學附設醫院,medical_center,桃園區,24.97,121.22,1,comprehensive,1,1,1,1,38,25,4,26

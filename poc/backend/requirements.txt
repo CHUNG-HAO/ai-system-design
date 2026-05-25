@@ -1,0 +1,12 @@
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.9
+pandas>=2.0.0
+pydantic>=2.5.0
+sentence-transformers>=2.7.0
+numpy>=1.24.0
+
+# 可選 — Apple Silicon 才裝；未裝時 backend 走 fallback
+# pip install mlx-lm        # 文字分級用 Qwen2.5-7B-Instruct-4bit
+# pip install mlx-vlm       # 照片分析用 Qwen2-VL-7B-Instruct-4bit
+# pip install mlx-whisper   # 語音轉文字用 whisper-large-v3-turbo

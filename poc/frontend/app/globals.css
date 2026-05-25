@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html, body {
+  background: #f8fafc;
+  color: #0f172a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC",
+    "Microsoft JhengHei", "Heiti TC", sans-serif;
+}
+
+.card {
+  @apply bg-white rounded-lg shadow-sm border border-slate-200 p-4;
+}
+
+.tag {
+  @apply inline-block px-2 py-0.5 rounded text-xs font-medium;
+}
+
+.tag-p1 {
+  @apply bg-red-100 text-red-700 border border-red-200;
+}
+
+.tag-p2 {
+  @apply bg-amber-100 text-amber-700 border border-amber-200;
+}
+
+.tag-ai {
+  @apply bg-blue-50 text-blue-700 border border-blue-200;
+}
+
+.tag-esi-1 {
+  @apply bg-red-600 text-white;
+}
+
+.tag-esi-2 {
+  @apply bg-orange-500 text-white;
+}
+
+.tag-esi-3 {
+  @apply bg-yellow-400 text-yellow-900;
+}
+
+.btn {
+  @apply px-3 py-1.5 rounded text-sm font-medium transition-colors;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.btn-primary:disabled {
+  @apply bg-slate-300 text-slate-500 cursor-not-allowed;
+}
+
+.btn-ghost {
+  @apply bg-slate-100 text-slate-700 hover:bg-slate-200;
+}
+
+.spinner {
+  @apply inline-block w-4 h-4 border-2 border-blue-200 border-t-blue-600 rounded-full animate-spin;
+}

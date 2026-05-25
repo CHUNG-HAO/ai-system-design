@@ -1,0 +1,44 @@
+# ============ Python ============
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# venv
+.venv/
+venv/
+env/
+
+# ============ Node / Next.js ============
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# ============ POC 專用 cache ============
+# RAG 索引 cache (~50MB, 可由 backend 重建)
+poc/backend/cache/rag_embeddings.npy
+poc/backend/cache/rag_docs.json
+# 使用者上傳檔 (照片/音檔)
+poc/backend/cache/uploads/
+
+# ============ HF / model cache ============
+.cache/
+*.safetensors
+*.gguf
+
+# ============ macOS / IDE ============
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ============ env / secret ============
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
